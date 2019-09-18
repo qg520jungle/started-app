@@ -14,6 +14,7 @@ import {
   View,
   Text,
   StatusBar,
+  Platform,
 } from 'react-native';
 
 import {
@@ -23,6 +24,10 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import {Provider} from 'react-redux';
+import AppNavigator from './js/navigator/AppNavigators';
+import store from './js/store';
 
 const App = () => {
   return (
