@@ -74,6 +74,39 @@ const PopularTab = props => {
         }}>
         跳转到详情页
       </Text>
+      <Text
+        onPress={() => {
+          NavigationUtil.goPage(
+            {
+              navigation: props.navigation,
+            },
+            'FetchDemo',
+          );
+        }}>
+        跳转到 Fetch 使用
+      </Text>
+      <Text
+        onPress={() => {
+          NavigationUtil.goPage(
+            {
+              navigation: props.navigation,
+            },
+            'AsyncStorageDemo',
+          );
+        }}>
+        跳转到 AsyncStorageDemo 使用
+      </Text>
+      <Text
+        onPress={() => {
+          NavigationUtil.goPage(
+            {
+              navigation: props.navigation,
+            },
+            'DataStoreDemo',
+          );
+        }}>
+        跳转到 DataStoreDemo 使用
+      </Text>
     </View>
   );
 };

@@ -8,6 +8,10 @@ import {
 import WelcomePage from '../pages/WelcomePage';
 import HomePage from '../pages/HomePage';
 import DetailPage from '../pages/DetailPage';
+import FetchDemo from '../pages/FetchDemo';
+import AsyncStorageDemo from '../pages/AsyncStorageDemo';
+import DataStoreDemo from '../pages/DataStoreDemo';
+
 import {connect} from 'react-redux';
 // import {createStore, applyMiddleware, combineReducers} from 'redux';
 import {
@@ -44,6 +48,25 @@ const MainNavigator = createStackNavigator({
       // header: null,
     },
   },
+  FetchDemo: {
+    screen: FetchDemo,
+    navigationOptions: {
+      // header: null,
+    },
+  },
+  AsyncStorageDemo: {
+    screen: AsyncStorageDemo,
+    navigationOptions: {
+      // header: null,
+    },
+  },
+  DataStoreDemo: {
+    screen: DataStoreDemo,
+    navigationOptions: {
+      // header: null,
+    },
+  },
+
 });
 
 // 不会跳到欢迎页
