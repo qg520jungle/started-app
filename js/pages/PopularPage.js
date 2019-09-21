@@ -6,7 +6,7 @@
  * @flow
  */
 
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect, useCallback} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,7 +14,11 @@ import {
   View,
   Text,
   StatusBar,
+  FlatList,
+  RefreshControl,
 } from 'react-native';
+import {useSelector, useDispatch, connect} from 'react-redux';
+import actions from '../action/index';
 import {createAppContainer} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import NavigationUtil from '../navigator/NavigationUtil';
@@ -58,55 +62,60 @@ const styles = StyleSheet.create({
   },
 });
 
+// let url = `https://api.github.com/search/repositories?q=${text}`;
+const URL = 'https://api.github.com/search/repositories?q=';
+const QUERY_STR = '&sort=stars';
+const THEME_COLOR = 'red';
+
 const PopularTab = props => {
   const {tabLabel, navigation} = props;
+  const popular = useSelector(state => state.popular);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    loadData();
+  }, [loadData, tabLabel]);
+  // dispatch(actions.onThemeChange('orange'));
+  //
+  // useCallback(()=>{
+
+  // })
+
+  const loadData = useCallback(() => {
+    const url = genFetchUrl(tabLabel);
+    dispatch(actions.onLoadPopularData(tabLabel, url));
+  }, [dispatch, tabLabel]);
+
+  const genFetchUrl = key => {
+    return URL + key + QUERY_STR;
+  };
+
+  const renderItem = data => {
+    const item = data.item;
+    return (
+      <View style={{marginBottom: 10}}>
+        <Text style={{backgroundColor: '#faa'}}>{JSON.stringify(item)}</Text>
+      </View>
+    );
+  };
+
   return (
     <View>
-      <Text>{tabLabel}</Text>
-      <Text
-        onPress={() => {
-          NavigationUtil.goPage(
-            {
-              navigation: props.navigation,
-            },
-            'DetailPage',
-          );
-        }}>
-        跳转到详情页
-      </Text>
-      <Text
-        onPress={() => {
-          NavigationUtil.goPage(
-            {
-              navigation: props.navigation,
-            },
-            'FetchDemo',
-          );
-        }}>
-        跳转到 Fetch 使用
-      </Text>
-      <Text
-        onPress={() => {
-          NavigationUtil.goPage(
-            {
-              navigation: props.navigation,
-            },
-            'AsyncStorageDemo',
-          );
-        }}>
-        跳转到 AsyncStorageDemo 使用
-      </Text>
-      <Text
-        onPress={() => {
-          NavigationUtil.goPage(
-            {
-              navigation: props.navigation,
-            },
-            'DataStoreDemo',
-          );
-        }}>
-        跳转到 DataStoreDemo 使用
-      </Text>
+      <FlatList
+        data={popular[tabLabel] ? popular[tabLabel].items : []}
+        renderItem={data => renderItem(data)}
+        keyExtractor={item => '' + item.id}
+        refreshControl={
+          <RefreshControl
+            title={'Loading'}
+            titleColor={THEME_COLOR}
+            color={[THEME_COLOR]}
+            refreshing={popular[tabLabel] ? popular[tabLabel].isLoading : false}
+            onRefresh={() => loadData()}
+            tintColor={THEME_COLOR}
+          />
+        }
+      />
     </View>
   );
 };

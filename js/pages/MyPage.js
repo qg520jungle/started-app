@@ -16,6 +16,7 @@ import {
   StatusBar,
   Button,
 } from 'react-native';
+import NavigationUtil from '../navigator/NavigationUtil';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {useSelector, useDispatch} from 'react-redux';
@@ -43,6 +44,50 @@ const MyPage = props => {
               // });
             }}
           />
+          <Text
+            onPress={() => {
+              NavigationUtil.goPage(
+                {
+                  navigation: props.navigation,
+                },
+                'DetailPage',
+              );
+            }}>
+            跳转到详情页
+          </Text>
+          <Text
+            onPress={() => {
+              NavigationUtil.goPage(
+                {
+                  navigation: props.navigation,
+                },
+                'FetchDemo',
+              );
+            }}>
+            跳转到 Fetch 使用
+          </Text>
+          <Text
+            onPress={() => {
+              NavigationUtil.goPage(
+                {
+                  navigation: props.navigation,
+                },
+                'AsyncStorageDemo',
+              );
+            }}>
+            跳转到 AsyncStorageDemo 使用
+          </Text>
+          <Text
+            onPress={() => {
+              NavigationUtil.goPage(
+                {
+                  navigation: props.navigation,
+                },
+                'DataStoreDemo',
+              );
+            }}>
+            跳转到 DataStoreDemo 使用
+          </Text>
         </View>
       </SafeAreaView>
     </Fragment>
