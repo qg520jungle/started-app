@@ -7,7 +7,7 @@ const onAction = (state = defaultState, action) => {
       return {
         ...state,
         [action.storeName]: {
-          ...[action.storeName],
+          ...state[action.storeName],
           items: action.items,
           isLoading: false,
         },
@@ -16,7 +16,7 @@ const onAction = (state = defaultState, action) => {
       return {
         ...state,
         [action.storeName]: {
-          ...[action.storeName],
+          ...state[action.storeName],
           isLoading: true,
         },
       };
@@ -24,7 +24,7 @@ const onAction = (state = defaultState, action) => {
       return {
         ...state,
         [action.storeName]: {
-          ...[action.storeName],
+          ...state[action.storeName],
           isLoading: false,
         },
       };

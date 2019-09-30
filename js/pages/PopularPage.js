@@ -22,6 +22,7 @@ import actions from '../action/index';
 import {createAppContainer} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import NavigationUtil from '../navigator/NavigationUtil';
+import PopularItem from '../common/PopularItem';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
@@ -93,9 +94,10 @@ const PopularTab = props => {
   const renderItem = data => {
     const item = data.item;
     return (
-      <View style={{marginBottom: 10}}>
-        <Text style={{backgroundColor: '#faa'}}>{JSON.stringify(item)}</Text>
-      </View>
+      // <View style={{marginBottom: 10}}>
+      //   <Text style={{backgroundColor: '#faa'}}>{JSON.stringify(item)}</Text>
+      // </View>
+      <PopularItem item={item} onSelect={() => {}} />
     );
   };
 
